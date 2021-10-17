@@ -9,9 +9,11 @@ print("Greetings! Welcome to MapQuest. Where do you want to go?")
 while True:
     orig = input("Starting Location: ")
     if orig == "quit" or orig == "q":
+        print("Thank you for using MapQuest!")
         break
     dest = input("Destination: ")
     if dest == "quit" or dest == "q":
+        print("Thank you for using MapQuest!")
         break
     url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest})
     print("URL: " + (url))
