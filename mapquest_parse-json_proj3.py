@@ -3,16 +3,20 @@ import requests
 
 main_api = "https://www.mapquestapi.com/directions/v2/route?"
 key = "ci3HmNJSBN1I6UYPtHDrp3Nhog2fHoVF"
-
+#Notifies the user that they have entered or started the MapQuest
 print("Greetings! Welcome to MapQuest. Where do you want to go?")
 
 while True:
     orig = input("Starting Location: ")
+
     if orig == "quit" or orig == "q":
+        #In order to notify the user that they have exitted the MapQuest
         print("Thank you for using MapQuest!")
         break
     dest = input("Destination: ")
+
     if dest == "quit" or dest == "q":
+        #In order to notify the user that they have exitted the MapQuest
         print("Thank you for using MapQuest!")
         break
     url = main_api + urllib.parse.urlencode({"key": key, "from":orig, "to":dest})
@@ -34,6 +38,9 @@ while True:
         print("=============================================")
         for each in json_data["route"]["legs"][0]["maneuvers"]:
             print((each["narrative"]) + " (" + str("{:.2f}".format((each["distance"])*1.61) + " km)"))
+
+            #Displays the time needed until you have reached your destination
+            #When the destination has been reached, it will notify you in terminal
             if each["formattedTime"] == "00:00:00":
                 print("You have arrived at your destination!")
             else:
