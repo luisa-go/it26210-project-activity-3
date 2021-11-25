@@ -24,18 +24,29 @@ while True:
     json_data = requests.get(url).json()
     json_status = json_data["info"]["statuscode"]
     if json_status == 0:
-        print("API Status: " + str(json_status) + " = A successful route call.\n")
-        print("=============================================")
+        print("API Status: " + str(json_status) + " = A successful route call.")
+        print("\n=============================================")
+        print("TRIP DETAILS")
         print("Directions from " + (orig) + " to " + (dest))
         print("Trip Duration: " + (json_data["route"]["formattedTime"]))
         print("Miles: " + str(json_data["route"]["distance"]))
         print("Fuel Used (Gal): " + str(json_data["route"]["fuelUsed"]))
-        print("=============================================")
+        print("\n=============================================")
+
+        print("TRIP DISTANCE")
         print("Kilometers: " +
         str("{:.2f}".format((json_data["route"]["distance"])*1.61)))
         print("Fuel Used (Ltr): " +
         str("{:.2f}".format((json_data["route"]["fuelUsed"])*3.78)))
-        print("=============================================")
+        print("\n=============================================")
+
+        print("TRIP NOTES")
+        print("Has bridge: ", str(json_data["route"]["legs"][0]["hasBridge"]))
+        print("Has Highway: ", str(json_data["route"]["legs"][0]["hasHighway"]))
+        print("Has Toll Road: ", str(json_data["route"]["legs"][0]["hasTollRoad"]))
+        print("\n=============================================")
+
+        print("DIRECTIONS FOR YOUR DESTINATION")
         for each in json_data["route"]["legs"][0]["maneuvers"]:
             print((each["narrative"]) + " (" + str("{:.2f}".format((each["distance"])*1.61) + " km)"))
 
@@ -44,7 +55,9 @@ while True:
             if each["formattedTime"] == "00:00:00":
                 print("You have arrived at your destination!")
             else:
-                print("Estimated Time of Arrival: ", each["formattedTime"])
+                for each2 in json_data["route"]["legs"]:
+                    print("Estimated Time of Arrival: ", each["formattedTime"])
+                    print('\n')
         
         print("=============================================\n")
 
@@ -61,3 +74,6 @@ while True:
         print("For Staus Code: " + str(json_status) + "; Refer to:")
         print("https://developer.mapquest.com/documentation/directions-api/status-codes")
         print("************************************************************************\n")
+
+#Washington, D.C.
+#Baltimore, MD
